@@ -6,10 +6,14 @@ from alembic import context
 
 from app.core.config import settings
 from app.db.base import Base
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-vry57d
+from app import models  # noqa: F401
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-ugb2w8
 from app import models  # noqa: F401
 =======
 from app.models import user  # noqa: F401
+main
 main
 
 config = context.config
