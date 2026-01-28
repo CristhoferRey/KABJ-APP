@@ -8,7 +8,20 @@ class Settings(BaseSettings):
     secret_key: str = "CHANGE_ME"
     algorithm: str = "HS256"
     access_token_expire_minutes: int = 60
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
     export_root: str = "backend/exports"
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+    admin_token: str = "CHANGE_ME_ADMIN"
+    export_root: str = "backend/exports"
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+    admin_token: str = "CHANGE_ME_ADMIN"
+    export_root: str = "backend/exports"
+=======
+ main
+main
+ main
 
 
 settings = Settings()

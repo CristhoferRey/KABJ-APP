@@ -2,11 +2,91 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 alembic
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+geoalchemy2
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+geoalchemy2
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-vry57d
+geoalchemy2
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ugb2w8
+geoalchemy2
+=======
+main
+main
+main
+main
+main
+main
+main
+main
+main
+main
+main
 psycopg2-binary
 python-jose[cryptography]
 passlib[bcrypt]
 pydantic
 pydantic-settings
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 python-multipart
 openpyxl
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+python-multipart
+openpyxl
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+python-multipart
+openpyxl
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+python-multipart
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+python-multipart
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+python-multipart
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
+python-multipart
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+python-multipart
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+python-multipart
+=======
+main
+ main
+ main
+ main
+main
+ main
+main
+main
+main

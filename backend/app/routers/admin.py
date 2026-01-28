@@ -1,25 +1,37 @@
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 import csv
 import io
+=======
+ main
 from datetime import date as date_type
 from pathlib import Path
 from zipfile import ZipFile
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, UploadFile, status
 from fastapi.responses import FileResponse
 from geoalchemy2 import WKTElement
+=======
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, status
+from fastapi.responses import FileResponse
+main
 from sqlalchemy import and_, func
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.deps import require_admin
 from app.db.session import get_db
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 from app.models.assignment import Assignment
+=======
+main
 from app.models.evidence import Evidence
 from app.models.execution import Execution
 from app.models.point import Point
 from app.models.sector import Sector
 from app.models.subactivity import SubActivity
 from app.models.user import User
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 from app.schemas.admin import (
     AssignmentCreate,
     AssignmentRead,
@@ -32,6 +44,8 @@ from app.schemas.admin import (
     SectorRead,
     SubActivityRead,
 )
+=======
+ main
 from app.services.export_service import (
     build_headers,
     build_rows,
@@ -43,6 +57,7 @@ from app.services.export_service import (
 router = APIRouter(prefix="/admin")
 
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 @router.get("/sectors", response_model=list[SectorRead])
 def list_sectors(db: Session = Depends(get_db), _: User = Depends(require_admin)) -> list[SectorRead]:
     return db.query(Sector).all()
@@ -284,11 +299,17 @@ def delete_assignment(
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
+=======
+main
 @router.post("/export")
 def export_daily(
     export_date: date_type = Query(..., alias="date"),
     db: Session = Depends(get_db),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
     _: User = Depends(require_admin),
+=======
+    _: str = Depends(require_admin),
+main
 ):
     evidence_sub = (
         db.query(
