@@ -15,11 +15,16 @@ docker compose up --build
 ### Migraciones (alembic)
 Dentro del contenedor backend:
 ```bash
+
+Para crear futuras migraciones:
+```bash
+docker compose exec backend alembic revision --autogenerate -m "descripcion"
+```
+
+=======
 docker compose exec backend alembic revision --autogenerate -m "init"
 docker compose exec backend alembic upgrade head
 ```
-
-La aplicación FastAPI corre en `http://localhost:8000/health`.
 
 ## Mobile
 
@@ -29,3 +34,14 @@ La app móvil incluye una estructura inicial lista para crecimiento por features
 cd mobile
 flutter run
 ```
+
+### Migraciones (alembic)
+
+Dentro del contenedor backend:
+
+```bash
+docker compose exec backend alembic upgrade head
+
+docker compose exec backend alembic revision --autogenerate -m "descripcion"
+docker compose exec backend alembic upgrade head
+
