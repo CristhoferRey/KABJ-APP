@@ -6,6 +6,9 @@ from alembic import context
 
 from app.core.config import settings
 from app.db.base import Base
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+from app import models  # noqa: F401
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
 from app import models  # noqa: F401
 =======
@@ -16,6 +19,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ugb2w8
 from app import models  # noqa: F401
 =======
 from app.models import user  # noqa: F401
+main
 main
 main
 main

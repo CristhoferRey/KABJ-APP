@@ -9,6 +9,11 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+  dio: ^5.4.3
+  shared_preferences: ^2.2.2
+=======
+main
 
 flutter:
   uses-material-design: true
