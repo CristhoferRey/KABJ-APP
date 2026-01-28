@@ -3,18 +3,26 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+import 'package:maplibre_gl/maplibre_gl.dart';
+=======
 import 'package:google_maps_flutter/google_maps_flutter.dart';
+ main
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/location/location_service.dart';
 import '../domain/map_models.dart';
 import '../domain/map_repository.dart';
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+import '../../execution/presentation/execute_point_screen.dart';
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
 import '../../execution/presentation/execute_point_screen.dart';
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 import '../../execution/presentation/execute_point_screen.dart';
 =======
+ main
  main
  main
 
@@ -43,12 +51,22 @@ class _MapScreenState extends State<MapScreen> {
   SectorOption? _selectedSector;
   SubActivityOption? _selectedSubactivity;
   Position? _currentPosition;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+  final Map<Symbol, PointItem> _pointSymbols = {};
+=======
   Set<Marker> _markers = {};
+ main
   bool _isLoading = false;
   String? _error;
   double _currentZoom = 16;
   PointItem? _selectedPoint;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+  MaplibreMapController? _mapController;
+  Symbol? _userLocationSymbol;
+  bool _symbolTapListenerSet = false;
+=======
   GoogleMapController? _mapController;
+ main
 
   @override
   void initState() {
@@ -75,6 +93,10 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _currentPosition = position;
       });
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+      _updateUserMarker();
+=======
+ main
     } catch (err) {
       setState(() {
         _error = 'No se pudo obtener la ubicación: $err';
@@ -91,8 +113,14 @@ class _MapScreenState extends State<MapScreen> {
     final subactivity = _selectedSubactivity;
     if (sector == null || subactivity == null) {
       setState(() {
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+        _selectedPoint = null;
+      });
+      await _clearPointSymbols();
+=======
         _markers = {};
       });
+main
       return;
     }
 
@@ -106,6 +134,9 @@ class _MapScreenState extends State<MapScreen> {
         sectorId: sector.id,
         subactivityId: subactivity.id,
       );
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+      await _renderPointSymbols(points, subactivity.formType);
+=======
       final markers = points.map((point) {
         final distance = _currentPosition == null
             ? double.infinity
@@ -144,6 +175,7 @@ class _MapScreenState extends State<MapScreen> {
       setState(() {
         _markers = markers;
       });
+ main
     } catch (err) {
       setState(() {
         _error = 'Error al cargar puntos: $err';
@@ -155,6 +187,123 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+  String _iconColorForFormType(FormType type) {
+    switch (type) {
+      case FormType.purga:
+        return '#2196F3';
+      case FormType.vpa:
+        return '#FB8C00';
+      case FormType.generic:
+        return '#E53935';
+    }
+  }
+
+  Future<void> _renderPointSymbols(
+    List<PointItem> points,
+    FormType formType,
+  ) async {
+    final controller = _mapController;
+    if (controller == null) return;
+    if (_pointSymbols.isNotEmpty) {
+      await controller.removeSymbols(_pointSymbols.keys.toList());
+      _pointSymbols.clear();
+    }
+
+    for (final point in points) {
+      final showSgio = _shouldShowSgio(point);
+      final symbol = await controller.addSymbol(
+        SymbolOptions(
+          geometry: LatLng(point.lat, point.lng),
+          iconImage: 'marker-15',
+          iconColor: _iconColorForFormType(formType),
+          iconSize: 1.2,
+          textField: showSgio ? point.sgio ?? '' : '',
+          textOffset: const Offset(0, 1.2),
+          textSize: 12,
+        ),
+        {},
+      );
+      _pointSymbols[symbol] = point;
+    }
+
+    setState(() {
+      _selectedPoint = null;
+    });
+
+    if (!_symbolTapListenerSet) {
+      controller.onSymbolTapped.add(_onSymbolTapped);
+      _symbolTapListenerSet = true;
+    }
+  }
+
+  Future<void> _clearPointSymbols() async {
+    final controller = _mapController;
+    if (controller == null) return;
+    if (_pointSymbols.isNotEmpty) {
+      await controller.removeSymbols(_pointSymbols.keys.toList());
+      _pointSymbols.clear();
+    }
+  }
+
+  bool _shouldShowSgio(PointItem point) {
+    final distance = _currentPosition == null
+        ? double.infinity
+        : _haversineDistance(
+            _currentPosition!.latitude,
+            _currentPosition!.longitude,
+            point.lat,
+            point.lng,
+          );
+    return distance <= 25 && _currentZoom >= 18 && (point.sgio ?? '').isNotEmpty;
+  }
+
+  void _onSymbolTapped(Symbol symbol) {
+    final point = _pointSymbols[symbol];
+    if (point == null) return;
+    setState(() {
+      _selectedPoint = point;
+    });
+    _openExecution(point);
+  }
+
+  Future<void> _updateSgioLabels() async {
+    final controller = _mapController;
+    if (controller == null) return;
+    for (final entry in _pointSymbols.entries) {
+      final showSgio = _shouldShowSgio(entry.value);
+      await controller.updateSymbol(
+        entry.key,
+        SymbolOptions(textField: showSgio ? entry.value.sgio ?? '' : ''),
+      );
+    }
+  }
+
+  Future<void> _updateUserMarker() async {
+    final controller = _mapController;
+    final position = _currentPosition;
+    if (controller == null || position == null) return;
+    final location = LatLng(position.latitude, position.longitude);
+    if (_userLocationSymbol != null) {
+      await controller.updateSymbol(
+        _userLocationSymbol!,
+        SymbolOptions(geometry: location),
+      );
+      return;
+    }
+    _userLocationSymbol = await controller.addSymbol(
+      SymbolOptions(
+        geometry: location,
+        iconImage: 'marker-15',
+        iconColor: '#1976D2',
+        iconSize: 1.3,
+        textField: 'Yo',
+        textOffset: const Offset(0, 1.2),
+        textSize: 12,
+      ),
+      {},
+    );
+=======
   String _buildInfoSnippet(PointItem point, String sectorName) {
     final lines = <String>[];
     if ((point.gis ?? '').isNotEmpty) {
@@ -185,6 +334,7 @@ class _MapScreenState extends State<MapScreen> {
       case FormType.generic:
         return BitmapDescriptor.defaultMarkerWithHue(BitmapDescriptor.hueRed);
     }
+ main
   }
 
   double _haversineDistance(
@@ -220,9 +370,12 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+ main
  main
   Future<void> _openExecution(PointItem point) async {
     final sector = _selectedSector;
@@ -242,9 +395,12 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
 =======
 =======
+ main
  main
  main
   void _onSectorChanged(SectorOption? sector) {
@@ -268,7 +424,11 @@ class _MapScreenState extends State<MapScreen> {
   }
 
   void _onCameraIdle() {
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+    _updateSgioLabels();
+=======
     _loadPoints();
+ main
   }
 
   @override
@@ -326,7 +486,12 @@ class _MapScreenState extends State<MapScreen> {
         Expanded(
           child: currentPosition == null
               ? const Center(child: Text('Esperando ubicación...'))
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+              : MaplibreMap(
+                  styleString: 'https://demotiles.maplibre.org/style.json',
+=======
               : GoogleMap(
+ main
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
                       currentPosition.latitude,
@@ -334,13 +499,20 @@ class _MapScreenState extends State<MapScreen> {
                     ),
                     zoom: _currentZoom,
                   ),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+=======
                   myLocationEnabled: true,
                   myLocationButtonEnabled: true,
                   markers: _markers,
+ main
                   onCameraMove: _onCameraMove,
                   onCameraIdle: _onCameraIdle,
                   onMapCreated: (controller) {
                     _mapController = controller;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+                    _updateUserMarker();
+=======
+ main
                   },
                 ),
         ),
@@ -348,6 +520,33 @@ class _MapScreenState extends State<MapScreen> {
           Container(
             padding: const EdgeInsets.all(16),
             color: Theme.of(context).colorScheme.surface,
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+            child: Column(
+              crossAxisAlignment: CrossAxisAlignment.start,
+              children: [
+                if ((_selectedPoint!.gis ?? '').isNotEmpty)
+                  Text('GIS: ${_selectedPoint!.gis}'),
+                if ((_selectedPoint!.suministro ?? '').isNotEmpty)
+                  Text('Suministro: ${_selectedPoint!.suministro}'),
+                if ((_selectedPoint!.direccion ?? '').isNotEmpty)
+                  Text('Dirección: ${_selectedPoint!.direccion}'),
+                if ((_selectedPoint!.locality ?? '').isNotEmpty)
+                  Text('Localidad: ${_selectedPoint!.locality}'),
+                if ((_selectedPoint!.district ?? '').isNotEmpty)
+                  Text('Distrito: ${_selectedPoint!.district}'),
+                if (_selectedSector != null) Text('Sector: ${_selectedSector!.name}'),
+                const SizedBox(height: 12),
+                Row(
+                  children: [
+                    Expanded(
+                      child: ElevatedButton.icon(
+                        onPressed: () => _openExternalNavigation(_selectedPoint!),
+                        icon: const Icon(Icons.navigation),
+                        label: const Text('Navegar'),
+                      ),
+                    ),
+                  ],
+=======
             child: Row(
               children: [
                 Expanded(
@@ -362,6 +561,7 @@ class _MapScreenState extends State<MapScreen> {
                   onPressed: () => _openExternalNavigation(_selectedPoint!),
                   icon: const Icon(Icons.navigation),
                   label: const Text('Navegar'),
+ main
                 ),
               ],
             ),
