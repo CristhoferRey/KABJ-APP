@@ -9,18 +9,26 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
+ main
   dio: ^5.4.3
   shared_preferences: ^2.2.2
   google_maps_flutter: ^2.6.0
   geolocator: ^11.0.0
   url_launcher: ^6.2.6
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+  image_picker: ^1.1.2
+  uuid: ^4.4.0
+=======
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
   dio: ^5.4.3
   shared_preferences: ^2.2.2
 =======
 main
+ main
  main
 
 flutter:

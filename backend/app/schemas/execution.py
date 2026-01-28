@@ -19,6 +19,10 @@ class ExecutionResponse(BaseModel):
     status: ExecutionStatus
     created_at: datetime
     duration_minutes: int | None = None
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+    is_closed: bool
+    requires_evidence: bool = False
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
     is_closed: bool
     requires_evidence: bool = False
@@ -34,6 +38,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
  main
  main
 main
+ main
 
     class Config:
         from_attributes = True
