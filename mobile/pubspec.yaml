@@ -9,9 +9,12 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+ main
  main
   dio: ^5.4.3
   shared_preferences: ^2.2.2
@@ -20,6 +23,8 @@ dependencies:
   url_launcher: ^6.2.6
   image_picker: ^1.1.2
   uuid: ^4.4.0
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 =======
 =======
@@ -54,6 +59,7 @@ main
  main
  main
 main
+ main
 
 flutter:
   uses-material-design: true

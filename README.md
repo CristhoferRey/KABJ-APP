@@ -15,6 +15,10 @@ docker compose up --build
 ### Migraciones (alembic)
 Dentro del contenedor backend:
 ```bash
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+docker compose exec backend alembic upgrade head
+```
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 docker compose exec backend alembic upgrade head
 ```
@@ -54,12 +58,16 @@ main
 main
 main
 main
+main
 
 Para crear futuras migraciones:
 ```bash
 docker compose exec backend alembic revision --autogenerate -m "descripcion"
 ```
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+La aplicación FastAPI corre en `http://localhost:8000/health`.
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 La aplicación FastAPI corre en `http://localhost:8000/health`.
 =======
@@ -96,6 +104,7 @@ main
 main
  main
  main
+ main
 
 ## Mobile
 
@@ -105,6 +114,8 @@ La app móvil incluye una estructura inicial lista para crecimiento por features
 cd mobile
 flutter run
 ```
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
@@ -124,6 +135,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
  main
  main
 main
+ main
 
 ## Evidencias (capturas)
 
@@ -135,7 +147,10 @@ curl -X POST "http://localhost:8000/mobile/evidence?execution_id=1" \
   -H "X-Device-Id: device-123" \
   -F "file=@/path/a/imagen.jpg"
 ```
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+ main
 
 ## Export técnico diario (admin)
 
@@ -148,6 +163,8 @@ curl -X POST "http://localhost:8000/admin/export?date=2024-01-31" \
 ```
 
 Los archivos se guardan temporalmente en `backend/exports/YYYY-MM-DD/`.
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+=======
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 =======
@@ -176,8 +193,9 @@ docker compose exec backend alembic upgrade head
 main
 main
 main
- main
- main
- main
- main
+main
+main
+main
+main
+main
 main

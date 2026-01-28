@@ -1,0 +1,22 @@
+name: conflict-markers-check
+
+on:
+  pull_request:
+
+jobs:
+  conflict-markers-check:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v4
+
+      - name: Scan for merge conflict markers
+        run: |
+          set -euo pipefail
+          matches=$(rg -n "<<<<<<<|=======|>>>>>>>" . || true)
+          if [ -n "$matches" ]; then
+            echo "Merge conflict markers detected in the following files:" >&2
+            echo "$matches" >&2
+            exit 1
+          fi
+          echo "No merge conflict markers found."
