@@ -1,4 +1,44 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
+from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer
+ main
+ main
+ main
+ main
+ main
+ main
+ main
+ main
+ main
+ main
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
 
@@ -19,4 +59,43 @@ class Execution(Base):
     duration_minutes = Column(Integer, nullable=True)
     form_data = Column(JSONB, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
     is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
+ main
+ main
+main
+ main
+main
+ main
+ main
+ main
+ main
+ main
