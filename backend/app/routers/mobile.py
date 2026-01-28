@@ -1,3 +1,5 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -23,6 +25,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
  main
  main
  main
+ main
 from datetime import date, datetime
 from pathlib import Path
 from uuid import uuid4
@@ -40,6 +43,8 @@ from app.models.execution import Execution
 from app.models.point import Point
 from app.models.user import User
 from app.schemas.evidence import EvidenceResponse
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -79,12 +84,15 @@ main
 main
 main
  main
+ main
 from app.schemas.execution import ExecutionCreate, ExecutionResponse
 from app.schemas.point import PointResponse
 from app.schemas.summary import SummaryResponse
 
 router = APIRouter(prefix="/mobile")
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -110,10 +118,13 @@ main
 main
 main
  main
+ main
 UPLOAD_DIR = Path(__file__).resolve().parents[2] / "uploads"
 MAX_UPLOAD_BYTES = 8 * 1024 * 1024
 ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png"}
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -139,7 +150,8 @@ main
 main
 main
 main
- main
+main
+main
 
 @router.get("/points", response_model=list[PointResponse])
 def list_points(
@@ -158,6 +170,8 @@ def list_points(
     )
 
     latest_exec = (
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -182,13 +196,16 @@ main
 main
 main
 main
- main
+main
+main
         db.query(
             Execution.point_id.label("point_id"),
             Execution.status.label("status"),
             Execution.is_closed.label("is_closed"),
             Execution.created_at.label("created_at"),
         )
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -215,7 +232,8 @@ main
 main
 main
 main
- main
+main
+main
         .join(
             latest_exec_sub,
             and_(
@@ -243,6 +261,9 @@ main
             func.ST_Y(Point.geom).label("lat"),
             func.ST_X(Point.geom).label("lng"),
             latest_exec.c.status.label("latest_status"),
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+            latest_exec.c.is_closed.label("latest_is_closed"),
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
             latest_exec.c.is_closed.label("latest_is_closed"),
 =======
@@ -278,7 +299,8 @@ main
 main
 main
 main
- main
+main
+main
         )
         .filter(
             Point.sector_id == sector_id,
@@ -291,6 +313,8 @@ main
 
     rows = query.all()
     results: list[PointResponse] = []
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -315,7 +339,8 @@ main
 main
 main
 main
- main
+main
+main
     for point, lat, lng, latest_status, latest_is_closed in rows:
         needs_evidence = False
         if latest_status == ExecutionStatus.resuelto and latest_is_closed is False:
@@ -323,6 +348,8 @@ main
         if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad} and latest_is_closed:
             continue
         if latest_status is not None and latest_status != ExecutionStatus.pendiente and not needs_evidence:
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -353,6 +380,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
  main
 main
  main
+main
             continue
         results.append(
             PointResponse(
@@ -368,6 +396,9 @@ main
                 is_active=point.is_active,
                 lat=lat,
                 lng=lng,
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+                needs_evidence=needs_evidence,
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
                 needs_evidence=needs_evidence,
 =======
@@ -404,6 +435,7 @@ main
 main
 main
  main
+main
             )
         )
 
@@ -445,6 +477,9 @@ def create_execution(
         duration = payload.ended_at - payload.started_at
         duration_minutes = int(duration.total_seconds() // 60)
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+    is_closed = payload.status in {ExecutionStatus.imposibilidad, ExecutionStatus.reprogramacion}
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
     is_closed = payload.status in {ExecutionStatus.imposibilidad, ExecutionStatus.reprogramacion}
 =======
@@ -481,6 +516,7 @@ main
 main
 main
  main
+main
     execution = Execution(
         point_id=payload.point_id,
         capataz_id=current_user.id,
@@ -490,6 +526,9 @@ main
         ended_at=payload.ended_at,
         duration_minutes=duration_minutes,
         form_data=payload.form_data,
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+        is_closed=is_closed,
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
         is_closed=is_closed,
 =======
@@ -526,10 +565,16 @@ main
 main
 main
  main
+ main
     )
     db.add(execution)
     db.commit()
     db.refresh(execution)
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+    response = ExecutionResponse.model_validate(execution)
+    response.requires_evidence = execution.status == ExecutionStatus.resuelto and not execution.is_closed
+    return response
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
     response = ExecutionResponse.model_validate(execution)
     response.requires_evidence = execution.status == ExecutionStatus.resuelto and not execution.is_closed
@@ -585,6 +630,7 @@ main
  main
 main
  main
+ main
 
 
 @router.get("/summary", response_model=SummaryResponse)
@@ -613,6 +659,8 @@ def get_summary(
     )
 
     latest_exec = (
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -638,12 +686,15 @@ main
 main
 main
  main
+ main
         db.query(
             Execution.point_id.label("point_id"),
             Execution.status.label("status"),
             Execution.is_closed.label("is_closed"),
             Execution.created_at.label("created_at"),
         )
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -671,6 +722,7 @@ main
 main
 main
 main
+ main
         .join(
             latest_exec_sub,
             and_(
@@ -682,6 +734,8 @@ main
     )
 
     pending_today_query = (
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -707,11 +761,14 @@ main
 main
 main
  main
+main
         db.query(
             Point.id,
             latest_exec.c.status.label("latest_status"),
             latest_exec.c.is_closed.label("latest_is_closed"),
         )
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -739,6 +796,7 @@ main
 main
 main
  main
+main
         .join(
             Assignment,
             and_(
@@ -753,6 +811,8 @@ main
     )
 
     pending_today = 0
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -778,11 +838,14 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
 main
 main
  main
+ main
     for _, latest_status, latest_is_closed in pending_today_query.all():
         needs_evidence = latest_status == ExecutionStatus.resuelto and latest_is_closed is False
         if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad} and latest_is_closed:
             continue
         if latest_status is not None and latest_status != ExecutionStatus.pendiente and not needs_evidence:
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -811,10 +874,13 @@ main
 main
 main
  main
+ main
             continue
         pending_today += 1
 
     return SummaryResponse(executed_today=executed_today, pending_today=pending_today)
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -839,6 +905,7 @@ main
 main
 main
 main
+ main
  main
 
 
@@ -895,6 +962,8 @@ def upload_evidence(
     db.commit()
     db.refresh(evidence)
     return EvidenceResponse.model_validate(evidence)
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -918,4 +987,5 @@ main
 main
 main
 main
+ main
  main

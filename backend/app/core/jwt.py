@@ -6,6 +6,8 @@ from jose import jwt
 from app.core.config import settings
 
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -34,6 +36,7 @@ main
  main
  main
  main
+ main
 def create_access_token(
     subject: str,
     role: str,
@@ -43,6 +46,8 @@ def create_access_token(
         expires_delta or timedelta(minutes=settings.access_token_expire_minutes)
     )
     to_encode: dict[str, Any] = {"sub": subject, "role": role, "exp": expire}
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
@@ -77,4 +82,5 @@ main
  main
  main
 main
+ main
     return jwt.encode(to_encode, settings.secret_key, algorithm=settings.algorithm)
