@@ -15,6 +15,10 @@ docker compose up --build
 ### Migraciones (alembic)
 Dentro del contenedor backend:
 ```bash
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+docker compose exec backend alembic upgrade head
+```
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 docker compose exec backend alembic upgrade head
 ```
@@ -46,6 +50,9 @@ Para crear futuras migraciones:
 docker compose exec backend alembic revision --autogenerate -m "descripcion"
 ```
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+La aplicación FastAPI corre en `http://localhost:8000/health`.
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 La aplicación FastAPI corre en `http://localhost:8000/health`.
 =======
@@ -70,6 +77,7 @@ main
  main
  main
 main
+main
 
 ## Mobile
 
@@ -79,6 +87,8 @@ La app móvil incluye una estructura inicial lista para crecimiento por features
 cd mobile
 flutter run
 ```
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
@@ -86,6 +96,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-fxsc7m
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+ main
  main
  main
  main
@@ -100,6 +111,8 @@ curl -X POST "http://localhost:8000/mobile/evidence?execution_id=1" \
   -H "X-Device-Id: device-123" \
   -F "file=@/path/a/imagen.jpg"
 ```
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
@@ -123,5 +136,6 @@ docker compose exec backend alembic upgrade head
 main
 main
 main
+ main
  main
  main

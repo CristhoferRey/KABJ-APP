@@ -1,12 +1,17 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/storage/token_storage.dart';
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+import '../../map/presentation/map_screen.dart';
+import '../../summary/presentation/summary_screen.dart';
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 import '../../map/presentation/map_screen.dart';
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-70pu3t
 import '../../map/presentation/map_screen.dart';
 =======
+ main
  main
  main
 
@@ -21,6 +26,19 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+        title: const Text('KABJ - Mapa'),
+        actions: [
+          IconButton(
+            icon: const Icon(Icons.analytics_outlined),
+            onPressed: () {
+              Navigator.of(context).push(
+                MaterialPageRoute(builder: (_) => const SummaryScreen()),
+              );
+            },
+          ),
+          IconButton(
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
         title: const Text('KABJ - Mapa'),
 =======
@@ -32,11 +50,15 @@ class HomeScreen extends StatelessWidget {
  main
         actions: [
           IconButton(
+ main
             icon: const Icon(Icons.logout),
             onPressed: _logout,
           ),
         ],
       ),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+      body: const MapScreen(),
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
       body: const MapScreen(),
 =======
@@ -46,6 +68,7 @@ class HomeScreen extends StatelessWidget {
       body: const Center(
         child: Text('Bienvenido, capataz.'),
       ),
+ main
  main
  main
     );

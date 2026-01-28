@@ -9,9 +9,13 @@ import 'package:url_launcher/url_launcher.dart';
 import '../../../core/location/location_service.dart';
 import '../domain/map_models.dart';
 import '../domain/map_repository.dart';
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+import '../../execution/presentation/execute_point_screen.dart';
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 import '../../execution/presentation/execute_point_screen.dart';
 =======
+ main
  main
 
 class MapScreen extends StatefulWidget {
@@ -125,9 +129,13 @@ class _MapScreenState extends State<MapScreen> {
             setState(() {
               _selectedPoint = point;
             });
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+            _openExecution(point);
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
             _openExecution(point);
 =======
+ main
  main
           },
         );
@@ -212,7 +220,10 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
+ main
   Future<void> _openExecution(PointItem point) async {
     final sector = _selectedSector;
     final subactivity = _selectedSubactivity;
@@ -231,7 +242,10 @@ class _MapScreenState extends State<MapScreen> {
     }
   }
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
 =======
+=======
+ main
  main
   void _onSectorChanged(SectorOption? sector) {
     setState(() {
