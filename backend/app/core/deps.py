@@ -1,5 +1,8 @@
 from typing import Annotated
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+from fastapi import Depends, Header, HTTPException, status
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 from fastapi import Depends, Header, HTTPException, status
 =======
@@ -19,6 +22,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
 from fastapi import Depends, Header, HTTPException, status
 =======
 from fastapi import Depends, HTTPException, status
+ main
  main
  main
  main
@@ -63,6 +67,8 @@ def require_capataz(user: Annotated[User, Depends(get_current_user)]) -> User:
     if user.role != "CAPATAZ":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
     return user
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
@@ -79,12 +85,21 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
  main
  main
  main
+ main
 
 
 def get_device_id(x_device_id: Annotated[str | None, Header()] = None) -> str:
     if not x_device_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Missing X-Device-Id header")
     return x_device_id
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+
+
+def require_admin(x_admin_token: Annotated[str | None, Header()] = None) -> str:
+    if not x_admin_token or x_admin_token != settings.admin_token:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
+    return x_admin_token
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
@@ -100,5 +115,6 @@ main
  main
 main
 main
+ main
  main
  main

@@ -1,3 +1,5 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
@@ -14,11 +16,16 @@ main
  main
  main
  main
+ main
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+from app.routers.admin import router as admin_router
+=======
+ main
 from app.routers.auth import router as auth_router
 from app.routers.health import router as health_router
 from app.routers.mobile import router as mobile_router
@@ -32,6 +39,9 @@ app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 app.include_router(health_router, tags=["health"])
 app.include_router(auth_router, tags=["auth"])
 app.include_router(mobile_router, tags=["mobile"])
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+app.include_router(admin_router, tags=["admin"])
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
@@ -66,4 +76,5 @@ main
 main
 main
 main
+ main
  main

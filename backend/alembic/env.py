@@ -6,6 +6,9 @@ from alembic import context
 
 from app.core.config import settings
 from app.db.base import Base
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+from app import models  # noqa: F401
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
 from app import models  # noqa: F401
 =======
@@ -39,6 +42,7 @@ main
  main
  main
  main
+main
 
 config = context.config
 if config.config_file_name is not None:
