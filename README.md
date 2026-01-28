@@ -1,2 +1,46 @@
-# KABJ-APP
-Aplicación para el control de actividades de los trabajadores
+# KABJ App
+
+Scaffolding inicial para backend (FastAPI + PostgreSQL/PostGIS) y mobile (Flutter).
+
+## Backend
+
+### Requisitos
+- Docker / Docker Compose
+
+### Levantar servicios
+```bash
+docker compose up --build
+```
+
+### Migraciones (alembic)
+Dentro del contenedor backend:
+```bash
+docker compose exec backend alembic upgrade head
+```
+
+Para crear futuras migraciones:
+```bash
+docker compose exec backend alembic revision --autogenerate -m "descripcion"
+```
+
+La aplicación FastAPI corre en `http://localhost:8000/health`.
+
+## Mobile
+
+La app móvil incluye una estructura inicial lista para crecimiento por features.
+
+```bash
+cd mobile
+flutter run
+```
+
+## Evidencias (capturas)
+
+Ejemplo para subir evidencia asociada a una ejecución:
+
+```bash
+curl -X POST "http://localhost:8000/mobile/evidence?execution_id=1" \
+  -H "Authorization: Bearer <TOKEN>" \
+  -H "X-Device-Id: device-123" \
+  -F "file=@/path/a/imagen.jpg"
+```
