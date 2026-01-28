@@ -1,3 +1,22 @@
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+from datetime import date, datetime
+from pathlib import Path
+from uuid import uuid4
+
+from fastapi import APIRouter, Depends, File, HTTPException, UploadFile, status
+from sqlalchemy import and_, func
+from sqlalchemy.orm import Session
+
+from app.core.deps import get_device_id, require_capataz
+from app.db.session import get_db
+from app.models.assignment import Assignment
+from app.models.enums import ExecutionStatus
+from app.models.evidence import Evidence
+from app.models.execution import Execution
+from app.models.point import Point
+from app.models.user import User
+from app.schemas.evidence import EvidenceResponse
+=======
 from datetime import date
 
 from fastapi import APIRouter, Depends, HTTPException, status
@@ -11,12 +30,20 @@ from app.models.enums import ExecutionStatus
 from app.models.execution import Execution
 from app.models.point import Point
 from app.models.user import User
+main
 from app.schemas.execution import ExecutionCreate, ExecutionResponse
 from app.schemas.point import PointResponse
 from app.schemas.summary import SummaryResponse
 
 router = APIRouter(prefix="/mobile")
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+UPLOAD_DIR = Path(__file__).resolve().parents[2] / "uploads"
+MAX_UPLOAD_BYTES = 8 * 1024 * 1024
+ALLOWED_CONTENT_TYPES = {"image/jpeg", "image/png"}
+
+=======
+main
 
 @router.get("/points", response_model=list[PointResponse])
 def list_points(
@@ -35,7 +62,16 @@ def list_points(
     )
 
     latest_exec = (
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+        db.query(
+            Execution.point_id.label("point_id"),
+            Execution.status.label("status"),
+            Execution.is_closed.label("is_closed"),
+            Execution.created_at.label("created_at"),
+        )
+=======
         db.query(Execution)
+ main
         .join(
             latest_exec_sub,
             and_(
@@ -63,6 +99,10 @@ def list_points(
             func.ST_Y(Point.geom).label("lat"),
             func.ST_X(Point.geom).label("lng"),
             latest_exec.c.status.label("latest_status"),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+            latest_exec.c.is_closed.label("latest_is_closed"),
+=======
+ main
         )
         .filter(
             Point.sector_id == sector_id,
@@ -75,10 +115,20 @@ def list_points(
 
     rows = query.all()
     results: list[PointResponse] = []
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+    for point, lat, lng, latest_status, latest_is_closed in rows:
+        needs_evidence = False
+        if latest_status == ExecutionStatus.resuelto and latest_is_closed is False:
+            needs_evidence = True
+        if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad} and latest_is_closed:
+            continue
+        if latest_status is not None and latest_status != ExecutionStatus.pendiente and not needs_evidence:
+=======
     for point, lat, lng, latest_status in rows:
         if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad}:
             continue
         if latest_status is not None and latest_status != ExecutionStatus.pendiente:
+ main
             continue
         results.append(
             PointResponse(
@@ -94,6 +144,10 @@ def list_points(
                 is_active=point.is_active,
                 lat=lat,
                 lng=lng,
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+                needs_evidence=needs_evidence,
+=======
+main
             )
         )
 
@@ -135,6 +189,10 @@ def create_execution(
         duration = payload.ended_at - payload.started_at
         duration_minutes = int(duration.total_seconds() // 60)
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+    is_closed = payload.status in {ExecutionStatus.imposibilidad, ExecutionStatus.reprogramacion}
+=======
+main
     execution = Execution(
         point_id=payload.point_id,
         capataz_id=current_user.id,
@@ -144,11 +202,21 @@ def create_execution(
         ended_at=payload.ended_at,
         duration_minutes=duration_minutes,
         form_data=payload.form_data,
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+        is_closed=is_closed,
+=======
+ main
     )
     db.add(execution)
     db.commit()
     db.refresh(execution)
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+    response = ExecutionResponse.model_validate(execution)
+    response.requires_evidence = execution.status == ExecutionStatus.resuelto and not execution.is_closed
+    return response
+=======
     return ExecutionResponse.model_validate(execution)
+ main
 
 
 @router.get("/summary", response_model=SummaryResponse)
@@ -177,7 +245,16 @@ def get_summary(
     )
 
     latest_exec = (
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+        db.query(
+            Execution.point_id.label("point_id"),
+            Execution.status.label("status"),
+            Execution.is_closed.label("is_closed"),
+            Execution.created_at.label("created_at"),
+        )
+=======
         db.query(Execution)
+main
         .join(
             latest_exec_sub,
             and_(
@@ -189,7 +266,15 @@ def get_summary(
     )
 
     pending_today_query = (
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+        db.query(
+            Point.id,
+            latest_exec.c.status.label("latest_status"),
+            latest_exec.c.is_closed.label("latest_is_closed"),
+        )
+=======
         db.query(Point.id, latest_exec.c.status.label("latest_status"))
+ main
         .join(
             Assignment,
             and_(
@@ -204,11 +289,76 @@ def get_summary(
     )
 
     pending_today = 0
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+    for _, latest_status, latest_is_closed in pending_today_query.all():
+        needs_evidence = latest_status == ExecutionStatus.resuelto and latest_is_closed is False
+        if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad} and latest_is_closed:
+            continue
+        if latest_status is not None and latest_status != ExecutionStatus.pendiente and not needs_evidence:
+=======
     for _, latest_status in pending_today_query.all():
         if latest_status in {ExecutionStatus.resuelto, ExecutionStatus.imposibilidad}:
             continue
-        if latest_status is not None and latest_status != ExecutionStatus.pendiente:
+main
             continue
         pending_today += 1
 
     return SummaryResponse(executed_today=executed_today, pending_today=pending_today)
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
+
+
+@router.post("/evidence", response_model=EvidenceResponse, status_code=status.HTTP_201_CREATED)
+def upload_evidence(
+    execution_id: int,
+    file: UploadFile = File(...),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(require_capataz),
+    device_id: str = Depends(get_device_id),
+) -> EvidenceResponse:
+    if file.content_type not in ALLOWED_CONTENT_TYPES:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid content type")
+
+    execution = db.query(Execution).filter(Execution.id == execution_id).first()
+    if not execution:
+        raise HTTPException(status_code=status.HTTP_404_NOT_FOUND, detail="Execution not found")
+    if execution.capataz_id != current_user.id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
+    if execution.status == ExecutionStatus.reprogramacion:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Evidence not allowed")
+    if execution.status == ExecutionStatus.pendiente:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Invalid execution status")
+
+    if current_user.device_id is None:
+        current_user.device_id = device_id
+        db.add(current_user)
+        db.commit()
+        db.refresh(current_user)
+    elif current_user.device_id != device_id:
+        raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Device mismatch")
+
+    file_data = file.file.read()
+    if len(file_data) > MAX_UPLOAD_BYTES:
+        raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="File too large")
+
+    UPLOAD_DIR.mkdir(parents=True, exist_ok=True)
+    extension = ".jpg" if file.content_type == "image/jpeg" else ".png"
+    filename = f"{execution.id}_{int(datetime.utcnow().timestamp())}_{uuid4().hex}{extension}"
+    file_path = UPLOAD_DIR / filename
+    file_path.write_bytes(file_data)
+
+    evidence = Evidence(
+        execution_id=execution.id,
+        file_url=f"/uploads/{filename}",
+        device_id=device_id,
+    )
+    db.add(evidence)
+
+    if execution.status == ExecutionStatus.resuelto:
+        execution.is_closed = True
+        db.add(execution)
+
+    db.commit()
+    db.refresh(evidence)
+    return EvidenceResponse.model_validate(evidence)
+=======
+ main
