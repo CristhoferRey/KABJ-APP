@@ -3,6 +3,9 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:geolocator/geolocator.dart';
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+import 'package:maplibre_gl/maplibre_gl.dart';
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 import 'package:maplibre_gl/maplibre_gl.dart';
 =======
@@ -16,11 +19,15 @@ import 'package:google_maps_flutter/google_maps_flutter.dart';
  main
 main
 main
+ main
 import 'package:url_launcher/url_launcher.dart';
 
 import '../../../core/location/location_service.dart';
 import '../domain/map_models.dart';
 import '../domain/map_repository.dart';
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+import '../../execution/presentation/execute_point_screen.dart';
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 import '../../execution/presentation/execute_point_screen.dart';
 =======
@@ -36,6 +43,7 @@ import '../../execution/presentation/execute_point_screen.dart';
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
 import '../../execution/presentation/execute_point_screen.dart';
 =======
+ main
  main
  main
  main
@@ -67,6 +75,9 @@ class _MapScreenState extends State<MapScreen> {
   SectorOption? _selectedSector;
   SubActivityOption? _selectedSubactivity;
   Position? _currentPosition;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+  final Map<Symbol, PointItem> _pointSymbols = {};
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
   final Map<Symbol, PointItem> _pointSymbols = {};
 =======
@@ -80,10 +91,16 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
  main
+ main
   bool _isLoading = false;
   String? _error;
   double _currentZoom = 16;
   PointItem? _selectedPoint;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+  MaplibreMapController? _mapController;
+  Symbol? _userLocationSymbol;
+  bool _symbolTapListenerSet = false;
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
   MaplibreMapController? _mapController;
   Symbol? _userLocationSymbol;
@@ -103,6 +120,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
 main
+ main
 
   @override
   void initState() {
@@ -129,6 +147,9 @@ main
       setState(() {
         _currentPosition = position;
       });
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+      _updateUserMarker();
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
       _updateUserMarker();
 =======
@@ -140,6 +161,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  main
  main
+main
 main
     } catch (err) {
       setState(() {
@@ -157,6 +179,11 @@ main
     final subactivity = _selectedSubactivity;
     if (sector == null || subactivity == null) {
       setState(() {
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+        _selectedPoint = null;
+      });
+      await _clearPointSymbols();
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
         _selectedPoint = null;
       });
@@ -176,7 +203,8 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
       });
 main
 main
- main
+main
+main
       return;
     }
 
@@ -190,6 +218,9 @@ main
         sectorId: sector.id,
         subactivityId: subactivity.id,
       );
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+      await _renderPointSymbols(points, subactivity.formType);
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
       await _renderPointSymbols(points, subactivity.formType);
 =======
@@ -240,6 +271,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
  main
+main
     } catch (err) {
       setState(() {
         _error = 'Error al cargar puntos: $err';
@@ -251,12 +283,15 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
     }
   }
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
- main
+main
+main
 main
   String _iconColorForFormType(FormType type) {
     switch (type) {
@@ -373,6 +408,8 @@ main
       ),
       {},
     );
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -411,6 +448,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
 main
 main
+main
   }
 
   double _haversineDistance(
@@ -446,6 +484,8 @@ main
     }
   }
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -455,9 +495,10 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-drar0n
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ra2stf
- main
- main
- main
+main
+main
+main
+main
 main
   Future<void> _openExecution(PointItem point) async {
     final sector = _selectedSector;
@@ -477,6 +518,8 @@ main
     }
   }
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -491,6 +534,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
  main
+main
   void _onSectorChanged(SectorOption? sector) {
     setState(() {
       _selectedSector = sector;
@@ -512,6 +556,9 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
   }
 
   void _onCameraIdle() {
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+    _updateSgioLabels();
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
     _updateSgioLabels();
 =======
@@ -525,6 +572,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
  main
+main
   }
 
   @override
@@ -582,6 +630,10 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
         Expanded(
           child: currentPosition == null
               ? const Center(child: Text('Esperando ubicación...'))
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+              : MaplibreMap(
+                  styleString: 'https://demotiles.maplibre.org/style.json',
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
               : MaplibreMap(
                   styleString: 'https://demotiles.maplibre.org/style.json',
@@ -597,7 +649,8 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
               : GoogleMap(
  main
  main
-main
+ main
+ main
                   initialCameraPosition: CameraPosition(
                     target: LatLng(
                       currentPosition.latitude,
@@ -605,6 +658,8 @@ main
                     ),
                     zoom: _currentZoom,
                   ),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -617,10 +672,14 @@ main
  main
  main
  main
+ main
                   onCameraMove: _onCameraMove,
                   onCameraIdle: _onCameraIdle,
                   onMapCreated: (controller) {
                     _mapController = controller;
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+                    _updateUserMarker();
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
                     _updateUserMarker();
 =======
@@ -633,6 +692,7 @@ main
  main
  main
  main
+ main
                   },
                 ),
         ),
@@ -640,13 +700,16 @@ main
           Container(
             padding: const EdgeInsets.all(16),
             color: Theme.of(context).colorScheme.surface,
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-6intmf
  main
-main
+ main
+ main
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
@@ -672,6 +735,8 @@ main
                       ),
                     ),
                   ],
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -691,6 +756,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
                   onPressed: () => _openExternalNavigation(_selectedPoint!),
                   icon: const Icon(Icons.navigation),
                   label: const Text('Navegar'),
+ main
  main
  main
  main

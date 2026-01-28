@@ -2,6 +2,9 @@ fastapi
 uvicorn[standard]
 sqlalchemy
 alembic
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+geoalchemy2
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 geoalchemy2
 =======
@@ -41,12 +44,17 @@ main
 main
 main
 main
- main
+main
+main
 psycopg2-binary
 python-jose[cryptography]
 passlib[bcrypt]
 pydantic
 pydantic-settings
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+python-multipart
+openpyxl
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 python-multipart
 openpyxl
@@ -79,5 +87,6 @@ main
  main
 main
  main
+main
 main
 main

@@ -15,6 +15,10 @@ docker compose up --build
 ### Migraciones (alembic)
 Dentro del contenedor backend:
 ```bash
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+docker compose exec backend alembic upgrade head
+```
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 docker compose exec backend alembic upgrade head
 ```
@@ -58,13 +62,16 @@ main
 main
 main
 main
-main
+mainmain
 
 Para crear futuras migraciones:
 ```bash
 docker compose exec backend alembic revision --autogenerate -m "descripcion"
 ```
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+La aplicación FastAPI corre en `http://localhost:8000/health`.
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 La aplicación FastAPI corre en `http://localhost:8000/health`.
 =======
@@ -105,6 +112,7 @@ main
  main
  main
  main
+main
 
 ## Mobile
 
@@ -114,6 +122,8 @@ La app móvil incluye una estructura inicial lista para crecimiento por features
 cd mobile
 flutter run
 ```
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
@@ -136,6 +146,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
  main
 main
  main
+main
 
 ## Evidencias (capturas)
 
@@ -147,9 +158,12 @@ curl -X POST "http://localhost:8000/mobile/evidence?execution_id=1" \
   -H "X-Device-Id: device-123" \
   -F "file=@/path/a/imagen.jpg"
 ```
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-viahdn
+ main
  main
 
 ## Export técnico diario (admin)
@@ -158,11 +172,26 @@ Genera un ZIP con un archivo XLSX por subactividad para la fecha indicada:
 
 ```bash
 curl -X POST "http://localhost:8000/admin/export?date=2024-01-31" \
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+  -H "Authorization: Bearer <ADMIN_TOKEN>" \
+=======
   -H "X-Admin-Token: CHANGE_ME_ADMIN" \
+ main
   -o exports_2024-01-31.zip
 ```
 
 Los archivos se guardan temporalmente en `backend/exports/YYYY-MM-DD/`.
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+
+### Crear admin inicial
+
+```bash
+export KABJ_ADMIN_EMAIL=admin@example.com
+export KABJ_ADMIN_PASSWORD=secret123
+export KABJ_ADMIN_NAME="Admin"
+python backend/scripts/create_admin.py
+```
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 =======
 =======
@@ -190,6 +219,7 @@ docker compose exec backend alembic upgrade head
 docker compose exec backend alembic revision --autogenerate -m "descripcion"
 docker compose exec backend alembic upgrade head
 
+main
 main
 main
 main

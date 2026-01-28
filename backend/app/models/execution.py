@@ -1,3 +1,6 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
 from sqlalchemy import Boolean, Column, DateTime, Enum, ForeignKey, Integer
 =======
@@ -31,6 +34,7 @@ from sqlalchemy import Column, DateTime, Enum, ForeignKey, Integer
  main
  main
  main
+ main
 from sqlalchemy.dialects.postgresql import JSONB
 from sqlalchemy.sql import func
 
@@ -51,6 +55,9 @@ class Execution(Base):
     duration_minutes = Column(Integer, nullable=True)
     form_data = Column(JSONB, nullable=True)
     created_at = Column(DateTime(timezone=True), server_default=func.now(), nullable=False)
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+    is_closed = Column(Boolean, default=False, nullable=False)
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
     is_closed = Column(Boolean, default=False, nullable=False)
 =======
@@ -80,6 +87,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
 main
  main
 main
+ main
  main
  main
  main
