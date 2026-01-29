@@ -1,0 +1,27 @@
+version: '3.9'
+
+services:
+  db:
+    image: postgis/postgis:15-3.4
+    environment:
+      POSTGRES_DB: kabj
+      POSTGRES_USER: kabj
+      POSTGRES_PASSWORD: kabj
+    ports:
+      - '5432:5432'
+    volumes:
+      - kabj_db:/var/lib/postgresql/data
+
+  backend:
+    build:
+      context: ./backend
+    environment:
+      KABJ_DATABASE_URL: postgresql+psycopg2://kabj:kabj@db:5432/kabj
+      KABJ_SECRET_KEY: changeme
+    ports:
+      - '8000:8000'
+    depends_on:
+      - db
+
+volumes:
+  kabj_db:
