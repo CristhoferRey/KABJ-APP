@@ -1,3 +1,4 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
 import { useEffect, useMemo, useState } from 'react';
 
 import { api } from '../services/api';
@@ -314,5 +315,15 @@ export function PointsPage() {
         </div>
       )}
     </div>
+=======
+import { PlaceholderPage } from './PlaceholderPage';
+
+export function PointsPage() {
+  return (
+    <PlaceholderPage
+      title="Points"
+      description="Gestión de puntos (pendiente de implementación)."
+    />
+ main
   );
 }
