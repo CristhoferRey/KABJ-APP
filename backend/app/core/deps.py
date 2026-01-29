@@ -1,5 +1,8 @@
 from typing import Annotated
 
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+from fastapi import Depends, Header, HTTPException, status
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 from fastapi import Depends, Header, HTTPException, status
 =======
@@ -41,6 +44,7 @@ from fastapi import Depends, HTTPException, status
 main
  main
  main
+main
 from fastapi.security import HTTPAuthorizationCredentials, HTTPBearer
 from jose import JWTError, jwt
 from sqlalchemy.orm import Session
@@ -79,6 +83,8 @@ def require_capataz(user: Annotated[User, Depends(get_current_user)]) -> User:
     if user.role != "CAPATAZ":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
     return user
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
@@ -106,15 +112,19 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-dvc5n3
  main
 main
  main
+main
 
 
 def get_device_id(x_device_id: Annotated[str | None, Header()] = None) -> str:
     if not x_device_id:
         raise HTTPException(status_code=status.HTTP_400_BAD_REQUEST, detail="Missing X-Device-Id header")
     return x_device_id
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+main
 main
 
 
@@ -122,6 +132,8 @@ def require_admin(user: Annotated[User, Depends(get_current_user)]) -> User:
     if user.role != "ADMIN":
         raise HTTPException(status_code=status.HTTP_403_FORBIDDEN, detail="Forbidden")
     return user
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
 =======
@@ -159,3 +171,4 @@ main
  main
  main
  main
+main

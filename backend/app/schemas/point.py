@@ -14,6 +14,9 @@ class PointResponse(BaseModel):
     is_active: bool
     lat: float
     lng: float
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+    needs_evidence: bool = False
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
     needs_evidence: bool = False
 =======
@@ -53,4 +56,5 @@ main
 main
 main
 main
+ main
  main
