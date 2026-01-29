@@ -1,3 +1,5 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -29,11 +31,15 @@ main
  main
  main
 main
+ main
 from pathlib import Path
 
 from fastapi import FastAPI
 from fastapi.staticfiles import StaticFiles
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+from app.routers.admin import router as admin_router
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 from app.routers.admin import router as admin_router
 =======
@@ -54,6 +60,7 @@ main
  main
  main
 main
+main
 from app.routers.auth import router as auth_router
 from app.routers.health import router as health_router
 from app.routers.mobile import router as mobile_router
@@ -67,6 +74,9 @@ app.mount("/uploads", StaticFiles(directory=uploads_dir), name="uploads")
 app.include_router(health_router, tags=["health"])
 app.include_router(auth_router, tags=["auth"])
 app.include_router(mobile_router, tags=["mobile"])
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+app.include_router(admin_router, tags=["admin"])
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 app.include_router(admin_router, tags=["admin"])
 =======
@@ -116,6 +126,7 @@ main
 main
 main
 main
+ main
  main
  main
  main

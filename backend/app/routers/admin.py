@@ -1,3 +1,7 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+import csv
+import io
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 import csv
 import io
@@ -13,10 +17,16 @@ import io
  main
  main
 main
+ main
 from datetime import date as date_type
 from pathlib import Path
 from zipfile import ZipFile
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+from fastapi import APIRouter, Depends, HTTPException, Query, Response, UploadFile, status
+from fastapi.responses import FileResponse
+from geoalchemy2 import WKTElement
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 from fastapi import APIRouter, Depends, HTTPException, Query, Response, UploadFile, status
 from fastapi.responses import FileResponse
@@ -37,12 +47,16 @@ from fastapi.responses import FileResponse
 main
  main
  main
+ main
 from sqlalchemy import and_, func
 from sqlalchemy.orm import Session
 
 from app.core.config import settings
 from app.core.deps import require_admin
 from app.db.session import get_db
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+from app.models.assignment import Assignment
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 from app.models.assignment import Assignment
 =======
@@ -55,17 +69,21 @@ from app.models.assignment import Assignment
 main
  main
  main
+ main
 from app.models.evidence import Evidence
 from app.models.execution import Execution
 from app.models.point import Point
 from app.models.sector import Sector
 from app.models.subactivity import SubActivity
 from app.models.user import User
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+ main
  main
  main
 from app.schemas.admin import (
@@ -80,11 +98,14 @@ from app.schemas.admin import (
     SectorRead,
     SubActivityRead,
 )
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
 =======
+ main
  main
  main
  main
@@ -99,11 +120,14 @@ from app.services.export_service import (
 router = APIRouter(prefix="/admin")
 
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-26hke3
+ main
  main
  main
 @router.get("/sectors", response_model=list[SectorRead])
@@ -347,6 +371,8 @@ def delete_assignment(
     return Response(status_code=status.HTTP_204_NO_CONTENT)
 
 
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -355,10 +381,14 @@ def delete_assignment(
 main
 main
  main
+ main
 @router.post("/export")
 def export_daily(
     export_date: date_type = Query(..., alias="date"),
     db: Session = Depends(get_db),
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+    _: User = Depends(require_admin),
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
     _: User = Depends(require_admin),
 =======
@@ -371,6 +401,7 @@ def export_daily(
     _: str = Depends(require_admin),
 main
 main
+ main
  main
 ):
     evidence_sub = (

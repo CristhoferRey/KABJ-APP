@@ -1,4 +1,7 @@
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
 codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
+ main
 import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
@@ -178,6 +181,8 @@ export function SectorsPage() {
         </div>
       )}
     </div>
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
 =======
 import { PlaceholderPage } from './PlaceholderPage';
 
@@ -188,5 +193,6 @@ export function SectorsPage() {
       description="Gestión de sectores (pendiente de implementación)."
     />
 main
+ main
   );
 }

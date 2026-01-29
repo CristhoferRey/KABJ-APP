@@ -9,6 +9,8 @@ environment:
 dependencies:
   flutter:
     sdk: flutter
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -25,6 +27,7 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
  main
  main
  main
+ main
   dio: ^5.4.3
   shared_preferences: ^2.2.2
   maplibre_gl: ^0.16.0
@@ -32,6 +35,8 @@ codex/initialize-project-scaffolding-for-fastapi-and-flutter-n79zkx
   url_launcher: ^6.2.6
   image_picker: ^1.1.2
   uuid: ^4.4.0
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -74,6 +79,7 @@ main
  main
  main
 main
+ main
  main
  main
  main

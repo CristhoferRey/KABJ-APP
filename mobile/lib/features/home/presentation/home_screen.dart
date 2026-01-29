@@ -1,6 +1,10 @@
 import 'package:flutter/material.dart';
 
 import '../../../core/storage/token_storage.dart';
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+import '../../map/presentation/map_screen.dart';
+import '../../summary/presentation/summary_screen.dart';
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 import '../../map/presentation/map_screen.dart';
 import '../../summary/presentation/summary_screen.dart';
@@ -43,6 +47,7 @@ main
  main
  main
  main
+ main
 
 class HomeScreen extends StatelessWidget {
   const HomeScreen({super.key});
@@ -55,6 +60,8 @@ class HomeScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -74,6 +81,7 @@ main
  main
  main
  main
+ main
         title: const Text('KABJ - Mapa'),
         actions: [
           IconButton(
@@ -85,6 +93,8 @@ main
             },
           ),
           IconButton(
+ codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 =======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-ec05v8
@@ -116,11 +126,15 @@ main
  main
  main
 main
+ main
             icon: const Icon(Icons.logout),
             onPressed: _logout,
           ),
         ],
       ),
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-db7lmb
+      body: const MapScreen(),
+=======
  codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
       body: const MapScreen(),
 =======
@@ -159,6 +173,7 @@ main
  main
  main
 main
+ main
  main
     );
   }
