@@ -1,3 +1,4 @@
+codex/initialize-project-scaffolding-for-fastapi-and-flutter-74q9ry
 import { useEffect, useState } from 'react';
 
 import { api } from '../services/api';
@@ -177,5 +178,15 @@ export function SectorsPage() {
         </div>
       )}
     </div>
+=======
+import { PlaceholderPage } from './PlaceholderPage';
+
+export function SectorsPage() {
+  return (
+    <PlaceholderPage
+      title="Sectors"
+      description="Gestión de sectores (pendiente de implementación)."
+    />
+main
   );
 }
